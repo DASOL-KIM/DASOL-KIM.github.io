@@ -39,9 +39,99 @@
     <link rel="stylesheet" href="./reset.css">
     <script src="jquery-latest.js"></script>
     <script>
-        /* 여기에 스크립트 작성  */
+        $(document).ready(function(){    
+            var wd = $(window).width();    
+            var cnt = $(".imgBox li").length - 1;    
+            var intv = setInterval(function(){ nextAni(); }, 5000);
+            function nextAni(){    
+                   $(".imgBox").not(":animated").animate({"margin-left":-wd+"px"}, 800, function(){    
+                       $(".imgBox li").eq(0).appendTo($(".imgBox"));    
+                       $(".imgBox").css("margin-left", "0px");    
+                       $(".numBtnFrame li").eq(0).appendTo($(".numBtnFrame"));    
+                       $(".numBtnFrame li button").removeClass("on");    
+                       $(".numBtnFrame li").eq(0).find("button").addClass("on");    
+                   });     
+            }    
+            function prevAni(){    
+                   $(".imgBox li").eq(cnt).prependTo($(".imgBox"));    
+                   $(".imgBox").css("margin-left", -wd+"px");    
+                   $(".imgBox").not(":animated").animate({"margin-left":"0px"}, 800, function(){    
+                       $(".numBtnFrame li").eq(cnt).prependTo($(".numBtnFrame"));    
+                       $(".numBtnFrame li button").removeClass("on");    
+                       $(".numBtnFrame li").eq(0).find("button").addClass("on");    
+                   });     
+            }    
+            $(".lrBtn.left").click(function(){    
+                clearInterval(intv);    
+                prevAni();    
+                intv = setInterval(function(){ nextAni(); }, 5000);    
+            });    
+            $(".lrBtn.right").click(function(){    
+                clearInterval(intv);    
+                nextAni();    
+                intv = setInterval(function(){ nextAni(); }, 5000);    
+            });    
+        });        
     </script>
     
+    <script>    
+    $(document).ready(function(){    
+        $(window).scroll(function(){    
+            var scTop = $(window).scrollTop();    
+            if(scTop>=120){    
+                $(".hdWrap1").not(":animated").slideUp(300);    
+                $(".header").css("position", "fixed").css("height", "80px");    
+            } else {    
+                $(".hdWrap1").not(":animated").slideDown(500);    
+                $(".header").css("position", "absolute").css("height", "200px");;    
+            }    
+        });    
+    });        
+    </script>
+
+    <script>    
+    $(document).ready(function(){    
+        $("#gnb label").click(function(){    
+            var th = $(this).attr("for");    
+            var thId = "#"+th;    
+            var scObj = $(thId).offset();    
+            var scDist = scObj.top;    
+            $("body, html").not(":animated").animate({"scrollTop": scDist}, 600);    
+            $("#gnb label").removeClass("on");    
+            $(this).addClass("on");    
+        });     
+    });        
+    </script>
+
+    <script>    
+    $(document).ready(function(){    
+        var obj1, obj2, obj3, obj4, obj5, obj6;    
+        obj1 = $("#main").offset();    
+        obj2 = $("#sub1").offset();
+        obj3 = $("#sub2").offset();
+        obj4 = $("#sub3").offset();
+        obj5 = $("#sub4").offset(); 
+        obj6 = $("#sub5").offset();
+
+        $(window).scroll(function(){    
+            var sct = $(window).scrollTop();     
+            $("#gnb label").removeClass("on");    
+            if(sct >= obj6.top-200) {    
+                $("#gnb li").eq(5).find("label").addClass("on");     
+            } else if(sct >= obj5.top-80) {    
+                $("#gnb li").eq(4).find("label").addClass("on");    
+            } else if(sct >= obj4.top-80) {    
+                $("#gnb li").eq(3).find("label").addClass("on");     
+            } else if(sct >= obj3.top-80) {    
+                $("#gnb li").eq(2).find("label").addClass("on");     
+            } else if(sct >= obj2.top-80) {    
+                $("#gnb li").eq(1).find("label").addClass("on");     
+            } else {    
+                $("#gnb li").eq(0).find("label").addClass("on");      
+            }    
+        });     
+    });        
+    </script>
 
     <style>
     .header { width:100%; height:200px; position:absolute; top:0; left: 0; z-index:100; background-color:#000; }  
