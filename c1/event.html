@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="font.css">
+    <style>
+    @charset "utf-8";
+    /*
+        font-family: 'Nanum Gothic', sans-serif;
+        font-family: 'Nanum Pen Script', cursive;
+        font-family: 'Nanum Myeongjo', serif;
+        font-family: 'Nanum Brush Script', cursive;
+        font-family: 'Latte Coffee Script', cursive;
+        font-family: 'NotoSansKR', sans-serif;
+    */
+    * { margin: 0; padding: 0; }
+    body, html { width: 100%; height: 100%; font-family: 'NotoSansKR', 'Nanum Gothic', sans-serif; -ms-scroll-style:none; }
+    ul { list-style: none; }
+    a { text-decoration: none; }
+    button, label, input, select { border:0; outline:0; }
+    </style>
+    <style>
+    .popBox { width:100%; height: 100%; min-height:1100px; 
+        background:rgba(0,0,0,0.6); position:fixed; top:0px; 
+        left:0; z-index:80; }    
+    .popFrame { width:1200px; height:930px; background-color:#fff; 
+        margin:0 auto; background-image:url("./src/s_pop_1.jpg");
+        background-size:cover; margin-top:40px; position:relative;
+        border:1px solid #ccc; }   
+    .popTit { color: #f2cb85;   text-shadow:0px 0px 6px #333, 0px 0px 5px #222, 0px 0px 4px #111, 0px 0px 3px #000;
+        text-indent:20px; line-height:80px; font-size:24px;  }
+    .popTit2 { line-height:70px; text-indent:230px; }
+    .popCloseBtn { display:block; width: 80px; height: 80px; position:absolute; right:0; top:0; background-image:url("./src/btn_close.png"); background-repeat: no-repeat; background-position: center center; cursor:pointer; }
+    .popContTit { color:#474747;    font-weight: 400;    font-size: 36px;  line-height:100px;  text-align: center; }  
+    .popImgBox { width: 752px; margin:110px auto; position:relative; }     
+    .privacy_wrap { margin:230px; padding:20px; background:#fff; 
+        margin-bottom:40px; height:120px; line-height:2.2; overflow-y:scroll; border:1px solid #eee; margin-top:0px; }
+    .privacy_wrap .list { }
+    .info_wrap { padding:20px; width:700px; margin:0 auto; background: #a1c2a8; padding-top: 0; height: 500px; position:relative; } 
+    .info_wrap li { line-height:40px; font-size:18px; color:#fff; margin:10px auto; clear:both; padding:10px 0px; }
+    .info_wrap input, .info_wrap select, .info_wrap span, .info_wrap label, .info_wrap button { display:block; height:40px; float:left; line-height:40px; margin:10px 5px; }
+    .info_wrap input, .info_wrap select, .info_wrap button { font-size:16px; text-indent:10px; }    
+    .info_wrap .label_tit { width:100px; }
+    .add_wrap { float:left; }
+    .info_wrap .info_full { width:492px; }
+    .info_wrap .info_full.clr { clear: both; } 
+    .post_btn { width:180px; text-align:center; color:#fff; background:#333; border-radius:8px; cursor:pointer; }    
+    .apply_btn { display:block; width: 150px; line-height:54px; font-size:22px; color:#333; background: #ffd57b; clear:both; left: 135px; text-align:center; font-weight: 600; cursor:pointer; position:absolute; bottom:25px;  
+    }        
+    </style>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".popCloseBtn").click(function(){
+            self.close();            
+        });
+    });        
+    </script>
+    <script>
+	function onlyNumberCheck(obj) {
+		obj.value = obj.value.replace(/[^0-9\.]/g,'');
+        obj.value = obj.value.replace(/[.]/g,''); 
+    }
+
+	function goPopup(){
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		var pop = window.open("http://www.foodis.com/html/themes/www/web/n_member/jusoPopup_utf8.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	}
+	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr,jibunAddr,zipNo,admCd,rnMgtSn,bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+		document.getElementById('addr1').value = roadAddrPart1 +' '+ roadAddrPart2;
+		document.getElementById('addr2').value = addrDetail;
+		document.getElementById('post').value = zipNo;
+	}
+
+	$(document).ready(function() {
+	  $('.apply_btn').click(function() {
+		applyEvent();
+	  });
+	});
+    function applyEvent(){
+        var frm = document.eventForm;
+        if(frm.userName.value=="" || frm.userPhone2.value=="" || frm.userPhone3.value=="" || frm.addr1.value=="" || frm.addr2.value=="") {
+            alert("필수 입력사항 중에서 빈 란이 존재합니다.");
+            frm.userName.focus();
+            return false;
+        } else {
+            frm.submit();
+        }
+    }    
+    </script>
+    <script>
+	var mobileKeyWords = new Array('iPhone', 'iPod', 'BlackBerry', 'Android', 'Windows CE', 'LG', 'MOT', 'SAMSUNG', 'SonyEricsson');
+	for (var word in mobileKeyWords) {
+		if (navigator.userAgent.match(mobileKeyWords[word]) != null) {
+			location.href = "mobile_event.html";
+		}
+	}
+    </script>
+</head>
+<body>
+<div class="popBox" id="popBox5">
+    <div class="popFrame">
+        <h3 class="popTit">이벤트 참여하기</h3>
+        <label class="popCloseBtn"></label>
+        <h3 class="popTit2">개인정보 수집 및 이용에 관한 정책</h3>
+        <div class="privacy_wrap">
+            <ul class="list">
+                <li class="li_tit">(주) 일동후디스는 원활한 이벤트 진행을 위하여 다음과 같이 고객님의 개인정보를 수집 및 이용 합니다.</li>
+                <li>고객님이 입력한 개인정보는 '정보통신망 이용촉진 및 정보보호 등에 관한 법률'에 따라 (주) 일동후디스가 수집, 활용 및 취급 시 본인의 동의를 얻어야 하는 정보입니다. 
+                입력하신 개인정보는 고객님의 사전동의 없이는 함부로 공개하지 않으며,아래의 용도 외에는 활용되지 않습니다.</li>
+                <li class="li_tit">1. 개인정보 수집항목 및 수집 목적</li>
+                <li>1-1. 수집이용목적 : 이벤트 진행 및 경품발송, TM</li>
+                <li>1-2. 수집항목(필수) : 이름, 전화번호, 주소, 아기월령, 수유현황</li>
+                <li>1-3. 보유/이용기간 : 이벤트 종료일로부터 90일간 </li>
+                <li class="li_tit">2. 고객은 개인정보 수집을 거부할 수 있습니다.</li>
+                <li>다만, 거부할 경우 본 이벤트에 참여하실 수 없습니다. </li>
+                <li class="li_tit">3. 귀하는 고객정보 수집 및 이용에 동의하지 않으실 수 있으나,   이 경우 이벤트 참여가 제한될 수 있습니다.</li>
+            </ul>
+            <div class="agree">
+                <label><input type="checkbox" id="agree" name="agree">이벤트 유의사항 및 개인정보활용에 동의 합니다.</label>
+            </div>
+        </div>
+        <div class="info_wrap">
+           <form action="applyEvent.php" name="eventForm">
+            <ul class="info_form">
+                <li class="info_li_mar">
+                    <label class="label_tit">1. 이름</label>
+                    <input class="info_full" type="text" name="userName" value="" maxlength="20">
+                </li>
+                <li class="info_li_mar">
+                    <label class="label_tit">2. 전화번호</label>
+                    <select id="userPhone1" name="userPhone1" title="연락처 앞번호 선택" style="text-indent:0;">
+                        <option value="010" selected="">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
+                    </select>
+                    <span>-</span>
+                    <input class="num_info" type="text" name="userPhone2" value="" maxlength="4" onkeyup="onlyNumberCheck(this)" title="연락처 중간번호 입력">
+                    <span>-</span>
+                    <input class="num_info" type="text" name="userPhone3" value="" maxlength="4" onkeyup="onlyNumberCheck(this)" title="연락처 뒤번호 입력">
+                </li>
+                <li class="info_li_mar">
+                    <label class="label_tit">3. 주소</label>
+                    <div class="add_wrap">
+                        <div class="post_wrap">
+                            <input class="num_info" type="text" name="post" id="post" value="" readonly="">
+                            <button class="post_btn" type="button" name="button" value="" onclick="goPopup();">우편번호 검색</button>
+                        </div>
+                        <input class="info_full clr" type="text" name="addr1" id="addr1" value="" readonly="">
+                        <input class="info_full clr" type="text" name="addr2" id="addr2" value="" placeholder="상세주소를 입력해주세요.">
+                    </div>
+                </li>
+                <li class="info_li_mar" style="margin-bottom:20px">
+                    <label class="label_tit">4. 공유 URL</label>
+                    <input class="info_full" type="text" name="snsUrl" value="">
+                </li>
+            </ul>
+            <a class="apply_btn">참여 완료</a>
+          </form>    
+        </div>
+    </div>
+</div>  
+</body>
+</html>
